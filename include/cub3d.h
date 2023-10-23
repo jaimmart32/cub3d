@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/19 18:02:32 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:51:32 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@ enum	e_type
 	EA,
 };
 
-typedef struct s_map
-{
-	char			*line;
-	struct s_map	*next;
-}				t_map;
-
 typedef struct s_tex
 {
 	char			*arg;
@@ -46,16 +40,16 @@ typedef struct s_tex
 	struct s_tex	*next;
 }				t_tex;
 
-typedef struct	s_cub
-{ 
+typedef struct s_cub
+{
 	char	**map;
-	char	*c_ceiling;
-	char	*c_floor;
+	int		c_ceiling[3];
+	int		c_floor[3];
 	t_tex	**textures;
-}
+}				t_cub;
 
 /*		cub3d		*/
-int		start_program(char *filename);
+int	start_program(char *filename);
 /*		utils		*/
 
 #endif

@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:35:37 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/19 18:02:27 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:00:55 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	start_program(char *filename)
+int	check_extension(char *filename)
+{
+	//check that file ends in .cub
+}
+
+int	parsing(char *filename)
 {
 	int		fd;
 	t_cub	*cub;
@@ -23,34 +28,13 @@ int	start_program(char *filename)
 	cub = malloc(sizeof(t_cub));
 	if (!cub)
 		return (printf(ERRMEM, "start_program"), 1);
-	
-}
-
-t_map	**get_list_map(int file)
-{
-	t_map	**lst_map;
-	char	*line;
-
-	lst_map = malloc(sizeof(t_map *));
-	if (!lst_map)
-		return (printf(ERRMEM, "get_list_map"), NULL);
-	*lst_map = NULL;
-	line = get_next_line(file);
-	while (line)
-	{
-		if (ft_strcmp(line, "\n"))
-			map_add_back(lst_map, create_node(line));
-		free(line);
-		line = get_next_line(file);
-	}
-
 }
 
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
 		return (printf(USAGE), 1);
-	if (start_program(argv[1]))
+	if (parsing(argv[1]))
 		return (1);
 	return (0);
 }
