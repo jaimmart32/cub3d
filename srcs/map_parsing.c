@@ -6,16 +6,16 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:35:37 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/23 16:00:55 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:34:58 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
-int	check_extension(char *filename)
+/*int	check_extension(char *filename)
 {
 	//check that file ends in .cub
-}
+}*/
 
 int	parsing(char *filename)
 {
@@ -28,6 +28,7 @@ int	parsing(char *filename)
 	cub = malloc(sizeof(t_cub));
 	if (!cub)
 		return (printf(ERRMEM, "start_program"), 1);
+	return (0);
 }
 
 int	main(int argc, char **argv)
