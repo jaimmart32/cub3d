@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/23 15:51:32 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:11:57 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <mlx.h>
+# include "../libft/libft.h"
 
-enum	e_type
+enum	e_tx_type
 {
 	NON,
-	N,
-	S,
+	NO,
+	SO,
 	WE,
 	EA,
 };
@@ -43,13 +44,14 @@ typedef struct s_tex
 typedef struct s_cub
 {
 	char	**map;
-	int		c_ceiling[3];
-	int		c_floor[3];
+	int		ceiling[3];
+	int		floor[3];
 	t_tex	**textures;
 }				t_cub;
 
 /*		cub3d		*/
-int	start_program(char *filename);
+int	check_extension(char *filename);
+int	parsing(char *filename);
 /*		utils		*/
 
 #endif
