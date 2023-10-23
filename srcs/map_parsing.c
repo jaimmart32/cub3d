@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:35:37 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/23 18:10:06 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:47:39 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,24 @@ int	manage_colors(t_cub *cub, char **array, char type)
 		return (0);
 		// put error
 	if (type == 'F')
-		cub->floor = rgb_code;
+	{
+		cub->floor[0] = rgb_code[0];
+		cub->floor[1] = rgb_code[1];
+		cub->floor[2] = rgb_code[2];
+	}
 	else if (type == 'C')
-		cub->ceiling = rgb_code;
+	{
+		cub->ceiling[0] = rgb_code[0];
+		cub->ceiling[1] = rgb_code[1];
+		cub->ceiling[2] = rgb_code[2];
+	}
 	return (1);
 }
 
 int	clean_line(t_cub *cub, char *line)
 {
 	char	**array;
-	
+
 	if (!line)
 		return (0);
 	array = ft_split(line, ' ');
@@ -79,14 +87,13 @@ int	clean_line(t_cub *cub, char *line)
 //	if (!ft_strcmp(array[0], "NO") || !ft_strcmp(array[0], "SO")
 //		|| !ft_strcmp(array[0], "WE") || !ft_strcmp(array[0], "EA"))
 //		cub->textures = manage_textures(array);
+	return (1);
 }
 
 t_cub	*fetch_header_data(int file_fd)
 {
 	char	*line;
-	char	**arr;
 	t_cub	*cub;
-//	t_tex	**text;
 
 	cub = malloc(sizeof(t_cub));
 	if (!cub)
@@ -107,6 +114,7 @@ t_cub	*fetch_header_data(int file_fd)
 	}
 	return (cub);
 }
+
 int	check_extension(char *filename)
 {
 	int		i;

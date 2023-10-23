@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/23 18:11:57 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:24:58 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include "../libft/libft.h"
+# include "../gnl/get_next_line.h"
 
 enum	e_tx_type
 {

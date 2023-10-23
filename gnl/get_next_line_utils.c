@@ -5,100 +5,139 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/23 12:21:14 by slucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 15:48:02 by jaimmart         ###   ########.fr       */
+/*   Created: 2022/10/27 15:30:09 by jaimmart          #+#    #+#             */
+/*   Updated: 2023/10/23 18:34:04 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-#include "../libft/libft.h"
+/*FT_GET_LINE:
+extrae la linea(terminando o en \n y \0 o solo \0 en el final del archivo)
+de la variable estática.
 
-/* Returns the index of the \n in <line>
-if there is one. -1 if not founded. */
-int	ft_linelen(char *line)
+parametros(Puntero a la variable estática acumulativa de la ejecucion previa
+de get_next_line)
+return(la string con la linea terminando en \n + \0(por eso se reserva malloc
+ i + 2))
+
+FT_NEW_LEFT_STR:
+Guarda en la variable estatica acumulativa la variable actualizada con lo que 
+sea que haya sobrado de la original, - la linea extraida.
+
+parametros(El puntero a la variable estatica acumulativa de la ejecucion previa
+de get_next_line).
+return(La nueva string actualizada con lo que queda de la estatica original,
+ - la linea extraida).
+*/
+
+size_t	f_strlen(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*f_strchr(char *s, int c)
 {
 	int	i;
 
-	if (!line)
-		return (-1);
 	i = 0;
-	while (line[i])
+	if (!s)
+		return (0);
+	if (c == '\0')
+		return ((char *)&s[f_strlen(s)]);
+	while (s[i] != '\0')
 	{
-		if (line[i] == '\n')
-			return (i);
+		if (s[i] == (char) c)
+			return ((char *)&s[i]);
 		i++;
 	}
-	return (-1);
+	return (0);
 }
 
-/* Creates -with malloc- a string that containd
-the first <len> bytes of <read> */
-char	*ft_getline(int len, char *read)
+char	*f_strjoin(char *left_str, char *buff)
 {
-	char	*line;
 	int		i;
+	int		j;
+	char	*str;
 
-	line = malloc(len + 1);
-	i = 0;
-	while (i < len)
+	if (!left_str)
 	{
-		line[i] = read[i];
-		i++;
+		left_str = (char *)malloc(1 * sizeof(char));
+		left_str[0] = '\0';
 	}
-	line[i] = '\0';
-	return (line);
-}
-
-/* Removes the first <len> bytes of <read> */
-char	*ft_clearline(int len, char *read)
-{
-	char	*output;
-	int		i;
-
-	if (read == NULL || (ft_strlen(read) - len + 1) == 0)
+	if (!left_str || !buff)
 		return (NULL);
-	output = malloc(ft_strlen(read) - len + 1);
-	i = 0;
-	while (read[len + i])
-	{
-		output[i] = read[len + i];
-		i++;
-	}
-	output[i] = '\0';
-	free (read);
-	return (output);
+	str = malloc(sizeof(char) * ((f_strlen(left_str) + f_strlen(buff)) + 1));
+	if (str == NULL)
+		return (NULL);
+	i = -1;
+	j = 0;
+	if (left_str)
+		while (left_str[++i] != '\0')
+			str[i] = left_str[i];
+	while (buff[j] != '\0')
+		str[i++] = buff[j++];
+	str[f_strlen(left_str) + f_strlen(buff)] = '\0';
+	free(left_str);
+	return (str);
 }
 
-// ---------------------------------------------------------------------
-// READ
-
-/* Reads BUFFER_SIZE bytes of the <fd> file,
-and adds it to the end of <oldread> */
-int	ft_newread(int fd, char **oldread)
+char	*ft_get_line(char *left_str)
 {
-	int		count;
-	char	newread[BUFFER_SIZE + 1];
-	char	*output;
 	int		i;
-	int		new_i;
+	char	*str;
 
-	count = read(fd, newread, BUFFER_SIZE);
-	newread[count] = '\0';
-	output = malloc(ft_strlen(*oldread) + count + 1);
-	if (!output)
-		return (-1);
 	i = 0;
-	while (oldread[0][i])
-	{	
-		output[i] = oldread[0][i];
+	if (!left_str[i])
+		return (NULL);
+	while (left_str[i] && left_str[i] != '\n')
+		i++;
+	str = (char *)malloc(sizeof(char) * (i + 2));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (left_str[i] && left_str[i] != '\n')
+	{
+		str[i] = left_str[i];
 		i++;
 	}
-	new_i = 0;
-	while (newread[new_i])
-		output[i++] = newread[new_i++];
-	output[i] = '\0';
-	free(*oldread);
-	*oldread = output;
-	return (count);
+	if (left_str[i] == '\n')
+	{
+		str[i] = left_str[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*ft_new_left_str(char *left_str)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	while (left_str[i] && left_str[i] != '\n')
+		i++;
+	if (!left_str[i])
+	{
+		free(left_str);
+		return (NULL);
+	}
+	str = (char *)malloc(sizeof(char) * (f_strlen(left_str) - i + 1));
+	if (!str)
+		return (NULL);
+	i++;
+	j = 0;
+	while (left_str[i])
+		str[j++] = left_str[i++];
+	str[j] = '\0';
+	free(left_str);
+	return (str);
 }
