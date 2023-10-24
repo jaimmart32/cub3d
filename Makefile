@@ -2,7 +2,7 @@ NAME = cub3D
 
 SRC = $(CUBE_SRC) $(SRC_GNL)
 
-CUBE = map_parsing.c main.c
+CUBE = map_parsing.c tc_utils.c main.c
 CUBE_SRC = $(addprefix srcs/, $(CUBE))
 
 LIBFT_A = libft.a
@@ -14,7 +14,7 @@ SRC_GNL = $(addprefix gnl/, $(GNL))
 
 OBJ = *.o
 CC = gcc -g
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 LINKS = -framework OpenGL -framework AppKit -lmlx
 
 NONE='\033[0m'

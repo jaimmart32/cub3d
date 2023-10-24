@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/23 18:24:58 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:52:31 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define ERRFORMAT "Error: %s: File should be in the \".cub\" format\n"
 # define ERROPEN "Error: %s: No access to the file\n"
 # define ERRMEM "Error: %s: Memory error\n"
+# define ERRCOLOR "Error: %s: Non-valid RGB value\n"
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
@@ -37,7 +38,7 @@ enum	e_tx_type
 
 typedef struct s_tex
 {
-	char			*arg;
+	char			*path;
 	int				type;
 	struct s_tex	*next;
 }				t_tex;
@@ -51,8 +52,14 @@ typedef struct s_cub
 }				t_cub;
 
 /*		cub3d		*/
-int	check_extension(char *filename);
-int	parsing(char *filename);
-/*		utils		*/
+int		check_extension(char *filename);
+int		parsing(char *filename);
+/*		tc_utils		*/
+void	insert_node(t_tex **lst, t_tex *node);
+t_tex	*create_node(char *texture_path, int type);
+int		check_rgb_code(int *rgb_code);
+int		only_numbers(char *str);
+int		check_extension(char *filename);
+void	free_2d_array(char **array);
 
 #endif
