@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/24 15:52:31 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:31:03 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,9 @@ int		check_rgb_code(int *rgb_code);
 int		only_numbers(char *str);
 int		check_extension(char *filename);
 void	free_2d_array(char **array);
+/*		fetch_header_data		*/
+t_cub	*fetch_header_data(int file_fd);
+/*		map_parsing				*/
+char	**get_map(char *filename);
 
 #endif

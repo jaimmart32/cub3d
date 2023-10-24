@@ -6,7 +6,7 @@
 /*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:11:24 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/24 16:12:06 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:29:42 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ t_cub	*fetch_header_data(int file_fd)
 		free(line);
 		line = get_next_line(file_fd);
 	}
+	close(file_fd);
 	return (cub);
 }
