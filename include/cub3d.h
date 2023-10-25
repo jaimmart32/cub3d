@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/25 12:32:08 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:12:23 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # define ERROPEN "Error: %s: No access to the file\n"
 # define ERRMEM "Error: %s: Memory error\n"
 # define ERRCOLOR "Error: %s: Non-valid RGB value\n"
+# define ERRTEXT "Error: Non-valid textures\n"
+# define ERRMAP "Error: Non-valid map\n"
+
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
@@ -34,6 +37,15 @@ enum	e_tx_type
 	SO,
 	WE,
 	EA,
+};
+
+enum	e_map_char
+{
+	NOT_VALID,
+	OPEN,
+	WALL,
+	PLAYER,
+	SPACE,
 };
 
 typedef struct s_tex
@@ -59,14 +71,21 @@ void	insert_node(t_tex **lst, t_tex *node);
 t_tex	*create_node(char *texture_path, int type);
 int		t_tex_size(t_tex *lst);
 /*		tc_utils		*/
-
 int		check_rgb_code(int *rgb_code);
 int		only_numbers(char *str);
 int		check_extension(char *filename);
-void	free_2d_array(char **array);
 /*		fetch_header_data		*/
 t_cub	*fetch_header_data(int file_fd);
 /*		map_parsing				*/
 char	**get_map(char *filename);
+int		valid_char(char c);
+/*		checkers				*/
+char	*get_spaced_line(char *str, int len);
+int		check_cub_struct(t_cub *cub);
+/*		array_utils				*/
+int		get_2d_array_size(char **array);
+char	**copy_spaced_map(char **map);
+void	free_2d_array(char **array);
+
 
 #endif

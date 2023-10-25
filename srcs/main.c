@@ -6,35 +6,17 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:28:51 by jaimmart          #+#    #+#             */
-/*   Updated: 2023/10/25 12:32:40 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:12:56 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	check_duplicate_tex(t_tex **textures)
-{
-	t_tex	*curr;
-	int		size;
-
-	t_tex_size(*textures);
-	curr = *textures;
-	while(curr)
-	{
-
-		curr = curr->next;
-	}
-}
-
-int	check_cub_struct(t_cub *cub)
-{
-
-}
-
 int	parsing(char *filename)
 {
 	int		fd;
 	t_cub	*cub;
+	char	**space_map;
 
 	if (!check_extension(filename))
 		return (printf(ERRFORMAT, filename), 1);
@@ -42,8 +24,11 @@ int	parsing(char *filename)
 	if (fd == -1)
 		return (printf(ERROPEN, filename), 1);
 	cub = fetch_header_data(fd);
-	cub->map = get_map(filename);
 //	Get cub->map value
+	cub->map = get_map(filename);
+	if (!cub->map)
+		return (printf(ERRMAP), 1);
+	space_map = copy_spaced_map(cub->map);
 //	Check errors inside of the cub structure
 	return (0);
 }

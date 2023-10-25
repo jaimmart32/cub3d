@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:35:37 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/24 17:43:22 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:53:10 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 int	valid_char(char c)
 {
 	if (c == '1')
-		return (1);
+		return (WALL);
 	if (c == '0')
-		return (1);
+		return (OPEN);
 	if (c == ' ')
-		return (1);
+		return (SPACE);
 	if (c == 'N')
-		return (1);
+		return (PLAYER);
 	if (c == 'S')
-		return (1);
+		return (PLAYER);
 	if (c == 'W')
-		return (1);
+		return (PLAYER);
 	if (c == 'E')
-		return (1);
-	return (0);
+		return (PLAYER);
+	return (NOT_VALID);
 }
 
 int	map_valid_chars(char *line)
@@ -55,7 +55,6 @@ int	get_array_size(char *filename)
 		return (printf(ERROPEN, filename), 0);
 	size = 0;
 	line = get_next_line(file_fd);
-	printf("line = %s\n", line);
 	while (line && (!ft_strcmp(line, "\n") || !map_valid_chars(line)))
 	{
 		free(line);
@@ -83,13 +82,13 @@ char	**get_map(char *filename)
 
 	arr_size = get_array_size(filename);
 	if (!arr_size)
-		return (printf("Error: Invalid map\n"), NULL);
+		return (NULL);
 	file_fd = open(filename, O_RDONLY);
 	if (file_fd == -1)
 		return (printf(ERROPEN, filename), NULL);
 	map = ft_calloc(arr_size + 1, sizeof(char *));
 	if (!map)
-		return (printf(ERRMEM, "get_map"), NULL);
+		return (printf(ERRMEM, "get_map"), close(file_fd), NULL);
 	line = get_next_line(file_fd);
 	i = 0;
 	while (line && (!ft_strcmp(line, "\n") || !map_valid_chars(line)))
@@ -99,9 +98,18 @@ char	**get_map(char *filename)
 	}
 	while (line)
 	{
-		if (!ft_strcmp(line, "\n") || !map_valid_chars(line))
+		if (!ft_strcmp(line, "\n"))
 			break ;
-		map[i++] = ft_strdup(line);
+		if (!map_valid_chars(line))
+			return (free(line), close(file_fd), NULL);
+		map[i++] = ft_strtrim(line, "\n");
+		free(line);
+		line = get_next_line(file_fd);
+	}
+	while (line)
+	{
+		if (ft_strcmp(line, "\n"))
+			return (free(line), close(file_fd), NULL);
 		free(line);
 		line = get_next_line(file_fd);
 	}

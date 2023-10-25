@@ -6,27 +6,29 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:27:44 by jaimmart          #+#    #+#             */
-/*   Updated: 2023/10/25 12:31:52 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:44:38 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+/* This function will return the size of the given t_tex *list.*/
 int	t_tex_size(t_tex *lst)
 {
-	int	i;
+	int	size;
 
-	i = 0;
+	size = 0;
 	if (!lst)
 		return (0);
 	while (lst)
 	{
-		i++;
+		size++;
 		lst = lst->next;
 	}
-	return (i);
+	return (size);
 }
 
+/* Creates a new node for t_tex.*/
 t_tex	*create_node(char *texture_path, int type)
 {
 	t_tex	*new;
@@ -40,6 +42,7 @@ t_tex	*create_node(char *texture_path, int type)
 	return (new);
 }
 
+/* Inserts a node at the end of a t_tex **lst.*/
 void	insert_node(t_tex **lst, t_tex *node)
 {
 	t_tex	*curr;

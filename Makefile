@@ -2,7 +2,7 @@ NAME = cub3D
 
 SRC = $(CUBE_SRC) $(SRC_GNL)
 
-CUBE = map_parsing.c tc_utils.c fetch_header_data.c main.c
+CUBE = array_utils.c map_parsing.c checkers.c t_tex_utils.c tc_utils.c fetch_header_data.c main.c
 CUBE_SRC = $(addprefix srcs/, $(CUBE))
 
 LIBFT_A = libft.a

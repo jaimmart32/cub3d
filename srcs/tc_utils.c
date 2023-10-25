@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:24:46 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/25 12:29:27 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:43:29 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,4 @@ int	check_extension(char *filename)
 			return (0);
 	}
 	return (1);
-}
-
-void	free_2d_array(char **array)
-{
-	int	i;
-
-	i = -1;
-	while (array[++i])
-		free(array[i]);
 }
