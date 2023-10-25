@@ -6,11 +6,30 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:28:51 by jaimmart          #+#    #+#             */
-/*   Updated: 2023/10/24 17:49:29 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:32:40 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	check_duplicate_tex(t_tex **textures)
+{
+	t_tex	*curr;
+	int		size;
+
+	t_tex_size(*textures);
+	curr = *textures;
+	while(curr)
+	{
+
+		curr = curr->next;
+	}
+}
+
+int	check_cub_struct(t_cub *cub)
+{
+
+}
 
 int	parsing(char *filename)
 {

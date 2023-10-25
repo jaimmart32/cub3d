@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/24 17:31:03 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:32:08 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,12 @@ typedef struct s_cub
 /*		cub3d		*/
 int		check_extension(char *filename);
 int		parsing(char *filename);
-/*		tc_utils		*/
+/*		t_tex__utils	*/
 void	insert_node(t_tex **lst, t_tex *node);
 t_tex	*create_node(char *texture_path, int type);
+int		t_tex_size(t_tex *lst);
+/*		tc_utils		*/
+
 int		check_rgb_code(int *rgb_code);
 int		only_numbers(char *str);
 int		check_extension(char *filename);

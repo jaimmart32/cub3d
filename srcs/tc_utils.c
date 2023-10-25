@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tc_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:24:46 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/24 16:04:57 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:29:27 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-void	insert_node(t_tex **lst, t_tex *node)
-{
-	t_tex	*curr;
-
-	if (!*lst)
-		*lst = node;
-	else
-	{
-		curr = *lst;
-		while (curr->next)
-			curr = curr->next;
-		curr->next = node;
-	}
-}
-
-t_tex	*create_node(char *texture_path, int type)
-{
-	t_tex	*new;
-
-	new = malloc(sizeof(t_tex));
-	if (!new)
-		return (printf(ERRMEM, "create_node"), NULL);
-	new->path = ft_strdup(texture_path);
-	new->type = type;
-	new->next = NULL;
-	return (new);
-}
 
 int	check_rgb_code(int *rgb_code)
 {
