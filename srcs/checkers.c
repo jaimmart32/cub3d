@@ -6,7 +6,7 @@
 /*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:03:31 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/25 17:12:26 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:44:04 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_map(char **map)
 
 	i = 0;
 	if (!check_player(map))
-		return (printf("non valid player"), 0);
+		return (0);
 	s_map = copy_spaced_map(map);
 	arr_y_size = get_2d_array_size(s_map);
 	arr_x_size = ft_strlen(s_map[0]);
@@ -85,12 +85,11 @@ int	check_map(char **map)
 			{
 				if (s_map[i - 1][j] == ' ' || s_map[i + 1][j] == ' ' ||
 					s_map[i][j - 1] == ' ' || s_map[i][j + 1] == ' ')
-					return (printf("Error open map\n"), 0);
-//					free s_map
+					return (free_2d_array(s_map), 0);
 			}
 		}
 	}
-	return (1);
+	return (free_2d_array(s_map), 1);
 }
 
 /* This function will check if the t_tex **textures list is correct, meaning

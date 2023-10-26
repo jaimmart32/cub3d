@@ -6,7 +6,7 @@
 /*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:11:24 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/24 17:29:42 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:07:43 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,19 @@ int	manage_colors(t_cub *cub, char **array, char type)
 	free_2d_array(array);
 	if (!rgb)
 		return (0);
+	if (get_2d_array_size(rgb) != 3)
+		return (printf(ERRCOLOR), free_2d_array(rgb), 0);
 	i = -1;
 	while (rgb[++i])
 	{
 		if (!only_numbers(rgb[i]))
-			return (printf(ERRCOLOR, rgb[i]), free_2d_array(rgb), 0);
+			return (printf(ERRCOLOR), free_2d_array(rgb), 0);
 	}
 	rgb_code[0] = ft_atoi(rgb[0]);
 	rgb_code[1] = ft_atoi(rgb[1]);
 	rgb_code[2] = ft_atoi(rgb[2]);
 	if (!check_rgb_code(rgb_code))
-		return (printf(ERRCOLOR, "rgb_code"), free_2d_array(rgb), 0);
+		return (printf(ERRCOLOR), free_2d_array(rgb), 0);
 	if (type == 'F')
 	{
 		cub->floor[0] = rgb_code[0];

@@ -6,20 +6,30 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/25 17:12:23 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/26 17:43:01 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+/*		ERROR MESSAGES		*/
 # define USAGE "Usage: ./cub3d filename.cub\n"
 # define ERRFORMAT "Error: %s: File should be in the \".cub\" format\n"
 # define ERROPEN "Error: %s: No access to the file\n"
 # define ERRMEM "Error: %s: Memory error\n"
-# define ERRCOLOR "Error: %s: Non-valid RGB value\n"
+# define ERRCOLOR "Error: Non-valid RGB value\n"
 # define ERRTEXT "Error: Non-valid textures\n"
 # define ERRMAP "Error: Non-valid map\n"
+
+/*			KEYBOARD		*/
+# define ESC 53
+# define W 13
+# define A 0
+# define S 1 
+# define D 2 
+# define LEFT 123 
+# define RIGHT 124 
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -48,6 +58,22 @@ enum	e_map_char
 	SPACE,
 };
 
+typedef struct s_player
+{
+	float	x;
+	float	y;
+}				t_player;
+
+/* Structure for all the needed variables for the mlx library. */
+typedef struct s_mlx
+{
+	void	*window;
+	void	*connect;
+	void	*background;
+//	Should include void * for textures
+}				t_mlx;
+
+/* Structure for the textures. */
 typedef struct s_tex
 {
 	char			*path;
@@ -55,18 +81,21 @@ typedef struct s_tex
 	struct s_tex	*next;
 }				t_tex;
 
+/* Main Structure for game. */
 typedef struct s_cub
 {
-	char	**map;
-	int		ceiling[3];
-	int		floor[3];
-	t_tex	**textures;
+	char		**map;
+	int			ceiling[3];
+	int			floor[3];
+	t_tex		**textures;
+	t_mlx		mlx;
+	t_player	player;
 }				t_cub;
 
 /*		cub3d		*/
 int		check_extension(char *filename);
-int		parsing(char *filename);
 /*		t_tex__utils	*/
+void	t_tex_free(t_tex **lst);
 void	insert_node(t_tex **lst, t_tex *node);
 t_tex	*create_node(char *texture_path, int type);
 int		t_tex_size(t_tex *lst);
@@ -86,6 +115,11 @@ int		check_cub_struct(t_cub *cub);
 int		get_2d_array_size(char **array);
 char	**copy_spaced_map(char **map);
 void	free_2d_array(char **array);
-
+/*		keyboard				*/
+int		key_press(int keycode, t_cub *cub);
+/*		player					*/
+void	render_player(t_mlx mlx, t_player player);
+/*		mini_map				*/
+void	render_background(t_cub *cub);
 
 #endif

@@ -6,11 +6,26 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:27:44 by jaimmart          #+#    #+#             */
-/*   Updated: 2023/10/25 12:44:38 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:59:32 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	t_tex_free(t_tex **lst)
+{
+	t_tex	*aux;
+
+	aux = *lst;
+	while (*lst)
+	{
+		aux = *lst;
+		*lst = (*lst)->next;
+		free(aux->path);
+		free(aux);
+	}
+	free(lst);
+}
 
 /* This function will return the size of the given t_tex *list.*/
 int	t_tex_size(t_tex *lst)
