@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/26 17:43:01 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:25:53 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@
 # define ESC 53
 # define W 13
 # define A 0
-# define S 1 
-# define D 2 
-# define LEFT 123 
-# define RIGHT 124 
+# define S 1
+# define D 2
+# define LEFT 123
+# define RIGHT 124
+
+/*		WINDOW			*/
+# define W_WIDTH 1024
+# define W_HEIGHT 512
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -81,6 +85,14 @@ typedef struct s_tex
 	struct s_tex	*next;
 }				t_tex;
 
+/* Structure for minimap*/
+typedef struct s_minimap
+{
+	int	tyle_size;
+	int	x_size;
+	int	y_size;
+}				t_minimap;
+
 /* Main Structure for game. */
 typedef struct s_cub
 {
@@ -90,6 +102,7 @@ typedef struct s_cub
 	t_tex		**textures;
 	t_mlx		mlx;
 	t_player	player;
+	t_minimap	minimap;
 }				t_cub;
 
 /*		cub3d		*/
@@ -121,5 +134,6 @@ int		key_press(int keycode, t_cub *cub);
 void	render_player(t_mlx mlx, t_player player);
 /*		mini_map				*/
 void	render_background(t_cub *cub);
+void	render_minimap(t_cub *cub);
 
 #endif
