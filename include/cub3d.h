@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/27 12:25:53 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/27 13:12:38 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ typedef struct s_tex
 	struct s_tex	*next;
 }				t_tex;
 
+/* Structure with map's info*/
+typedef struct s_map_data
+{
+	int	x_len;
+	int	y_len;
+}			t_map_data;
+
 /* Structure for minimap*/
 typedef struct s_minimap
 {
@@ -103,6 +110,7 @@ typedef struct s_cub
 	t_mlx		mlx;
 	t_player	player;
 	t_minimap	minimap;
+	t_map_data	map_data;
 }				t_cub;
 
 /*		cub3d		*/
