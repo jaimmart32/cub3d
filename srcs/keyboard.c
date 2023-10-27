@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:09:50 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/26 16:50:08 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:23:36 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ void	move_player(int keycode, t_cub *cub)
 {
 	if (keycode == W)
 	{
-		cub->player.y--;
+		cub->player.y -= 5;
 		render_background(cub);
 	}
 	if (keycode == S)
 	{
-		cub->player.y++;
+		cub->player.y += 5;
 		render_background(cub);
 	}
 	if (keycode == A)
 	{
-		cub->player.x--;
+		cub->player.x -= 5;
 		render_background(cub);
 	}
 	if (keycode == D)
 	{
-		cub->player.x++;
+		cub->player.x += 5;
 		render_background(cub);
 	}
 }
