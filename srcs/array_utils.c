@@ -6,12 +6,13 @@
 /*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:42:36 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/26 13:09:12 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/28 12:17:06 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+/* Iterates the received **array and returns its length. */
 int	get_2d_array_size(char **array)
 {
 	int	size;
@@ -22,6 +23,7 @@ int	get_2d_array_size(char **array)
 	return (size);
 }
 
+/* Checks the received **map and returns the length of the longest line. */
 size_t	get_longest_line(char **map)
 {
 	size_t	longest;
@@ -37,6 +39,9 @@ size_t	get_longest_line(char **map)
 	return (longest);
 }
 
+/* Will receive the original **map, search for the longest line, and add spaces
+ * to the surroundings. Returns a space surrounded map for later check in the
+ * parsing.  */
 char	**copy_spaced_map(char **map)
 {
 	char	**spaced_map;
@@ -63,6 +68,7 @@ char	**copy_spaced_map(char **map)
 	return (spaced_map);
 }
 
+/* Frees a char ** array */
 void	free_2d_array(char **array)
 {
 	int	i;

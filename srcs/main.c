@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:28:51 by jaimmart          #+#    #+#             */
-/*   Updated: 2023/10/27 12:47:32 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:16:57 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,29 @@ t_player	get_player_position(void)
 {
 	t_player	player;
 
-	player.x = W_WIDTH / 4;
-	player.y = W_HEIGHT / 2;
+	player.x = WIDTH / 4;
+	player.y = HEIGHT / 2;
 	return (player);
+}
+
+void	init_game(t_cub *cub)
+{
+	cub->mlx.connect = mlx_init();
+	cub->mlx.window = mlx_new_window(cub->mlx.connect, WIDTH, HEIGHT, "cub3d");
+	cub->player = get_player_position();
+	mlx_hook(cub->mlx.window, 17, 0, (void *)exit, 0);
+	mlx_hook(cub->mlx.window, 2, 1L << 0, key_press, cub);
+//	Should put the first image
+////	render_background(cub);
+//	render_minimap(cub);
+	paint_mini_map(cub);
+	mlx_put_image_to_window(cub->mlx.connect, cub->mlx.window, cub->mlx.img_background.img, 0, 32);
+	mlx_loop(cub->mlx.connect);
 }
 
 int	exec_game(t_cub *cub)
 {
-	cub->mlx.connect = mlx_init();
-	cub->mlx.window = mlx_new_window(cub->mlx.connect, W_WIDTH, W_HEIGHT, "cub3d");
-	cub->player = get_player_position();
-	mlx_hook(cub->mlx.window, 17, 0, (void *)exit, 0);
-	mlx_hook(cub->mlx.window, 2, 1L << 0, key_press, cub);
-//	render_background(cub);
-	render_minimap(cub);
-	mlx_loop(cub->mlx.connect);
+	init_game(cub);
 	return (0);
 }
 

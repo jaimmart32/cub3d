@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:09:50 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/27 12:42:08 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/28 19:23:02 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,35 @@ void	move_player(int keycode, t_cub *cub)
 	if (keycode == W)
 	{
 		cub->player.y -= 5;
-		render_minimap(cub);
+//		render_minimap(cub);
 	}
 	if (keycode == S)
 	{
 		cub->player.y += 5;
-		render_minimap(cub);
+//		render_minimap(cub);
 	}
 	if (keycode == A)
 	{
 		cub->player.x -= 5;
-		render_minimap(cub);
+//		render_minimap(cub);
 	}
 	if (keycode == D)
 	{
 		cub->player.x += 5;
-		render_minimap(cub);
+//		render_minimap(cub);
 	}
 }
 
+/* Just a function for when the user presses the ESC key. */
 void	close_game(t_cub *cub)
 {
 	mlx_destroy_window(cub->mlx.connect, cub->mlx.window);
 	exit(0);
 }
 
+/* This function is one of the arguments passed to the mlx_hook(), in
+ * exec_game(). Will receive a keycode and accordingly to that keycode
+ * it will call a different function. */ 
 int	key_press(int keycode, t_cub *cub)
 {
 	if (keycode == ESC)

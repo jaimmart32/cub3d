@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/27 13:12:38 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/28 19:27:12 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define RIGHT 124
 
 /*		WINDOW			*/
-# define W_WIDTH 1024
-# define W_HEIGHT 512
+# define WIDTH 1024
+# define HEIGHT 512
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -62,10 +62,22 @@ enum	e_map_char
 	SPACE,
 };
 
+/* Structure for the image creation process, this will be passed to the
+ * mlx_new_image() to create each image. */
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		endian;
+	int		len;
+	int		bpp;
+}				t_img;
+
 typedef struct s_player
 {
 	float	x;
 	float	y;
+	float	fov;
 }				t_player;
 
 /* Structure for all the needed variables for the mlx library. */
@@ -74,6 +86,7 @@ typedef struct s_mlx
 	void	*window;
 	void	*connect;
 	void	*background;
+	t_img	img_background;
 //	Should include void * for textures
 }				t_mlx;
 
@@ -85,7 +98,7 @@ typedef struct s_tex
 	struct s_tex	*next;
 }				t_tex;
 
-/* Structure with map's info*/
+/* Structure with char **map's info*/
 typedef struct s_map_data
 {
 	int	x_len;
@@ -140,7 +153,11 @@ void	free_2d_array(char **array);
 int		key_press(int keycode, t_cub *cub);
 /*		player					*/
 void	render_player(t_mlx mlx, t_player player);
+/*		images					*/
+t_img	create_image(t_mlx mlx);
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 /*		mini_map				*/
+void	paint_mini_map(t_cub *cub);
 void	render_background(t_cub *cub);
 void	render_minimap(t_cub *cub);
 
