@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:09:50 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/30 15:22:01 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:51:53 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ void	move_player(int keycode, t_cub *cub)
 {
 	if (keycode == W)
 	{
+		//move = 1
+		//cub->player.x += (coseno[angulo] * velocidad de movimiento)
+		//cub->player.y += (seno[angulo] * velocidad de movimiento)
 		cub->player.y -= 5;
 		paint_mini_map(cub);
 //		render_minimap(cub);
 	}
 	if (keycode == S)
 	{
+		//move = -1
 		cub->player.y += 5;
 		paint_mini_map(cub);
 //		render_minimap(cub);
@@ -38,6 +42,8 @@ void	move_player(int keycode, t_cub *cub)
 		paint_mini_map(cub);
 //		render_minimap(cub);
 	}
+	//flecha izq -> turn = -1 angulo = turn * turn_speed
+	//flecha der -> turn = 1 angulo = turn * turn_speed
 }
 
 /* Just a function for when the user presses the ESC key. */

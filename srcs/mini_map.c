@@ -6,13 +6,14 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:30:03 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/30 15:33:51 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:59:10 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-/* Ojo, se asume que todas las lineas del mapa miden lo mismo!*/
+/* Ojo, se asume que todas las lineas del mapa miden lo mismo!, lo suyo seria,
+coger el length de la linea mas larga por si el mapa es irregular en el eje x*/
 void	init_map_data(t_cub *cub)
 {
 	cub->map_data.x_len = (int)ft_strlen(cub->map[0]);
