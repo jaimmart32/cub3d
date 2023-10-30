@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:09:50 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/28 19:23:02 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:22:01 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,25 @@ void	move_player(int keycode, t_cub *cub)
 	if (keycode == W)
 	{
 		cub->player.y -= 5;
+		paint_mini_map(cub);
 //		render_minimap(cub);
 	}
 	if (keycode == S)
 	{
 		cub->player.y += 5;
+		paint_mini_map(cub);
 //		render_minimap(cub);
 	}
 	if (keycode == A)
 	{
 		cub->player.x -= 5;
+		paint_mini_map(cub);
 //		render_minimap(cub);
 	}
 	if (keycode == D)
 	{
 		cub->player.x += 5;
+		paint_mini_map(cub);
 //		render_minimap(cub);
 	}
 }
@@ -58,5 +62,7 @@ int	key_press(int keycode, t_cub *cub)
 		move_player(S, cub);
 	if (keycode == D)
 		move_player(D, cub);
+//	if (keycode == LEFT)
+//	if (keycode == RIGHT)
 	return (0);
 }

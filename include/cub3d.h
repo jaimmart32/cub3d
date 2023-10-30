@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/28 19:27:12 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:34:58 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 /*		WINDOW			*/
 # define WIDTH 1024
 # define HEIGHT 512
+# define TILE_SIZE 16
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -77,7 +78,13 @@ typedef struct s_player
 {
 	float	x;
 	float	y;
-	float	fov;
+//	float	fov;
+	float	rotation;
+	int		move;
+	int		turn;
+	int		m_speed;
+	int		t_speed;
+
 }				t_player;
 
 /* Structure for all the needed variables for the mlx library. */
@@ -108,7 +115,6 @@ typedef struct s_map_data
 /* Structure for minimap*/
 typedef struct s_minimap
 {
-	int	tyle_size;
 	int	x_size;
 	int	y_size;
 }				t_minimap;
@@ -153,6 +159,7 @@ void	free_2d_array(char **array);
 int		key_press(int keycode, t_cub *cub);
 /*		player					*/
 void	render_player(t_mlx mlx, t_player player);
+t_player	get_player_position(char **map);
 /*		images					*/
 t_img	create_image(t_mlx mlx);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
