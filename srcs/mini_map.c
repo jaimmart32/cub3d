@@ -6,12 +6,13 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:30:03 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/27 13:57:49 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:27:24 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+/* Ojo, se asume que todas las lineas del mapa miden lo mismo!*/
 void	init_map_data(t_cub *cub)
 {
 	cub->map_data.x_len = (int)ft_strlen(cub->map[0]);
@@ -54,7 +55,7 @@ void	render_minimap(t_cub *cub)
 	unsigned int	e_color;
 	unsigned int	w_color;
 
-	x = 0;
+	y = 0;
 	init_map_data(cub);
 	cub->minimap.tyle_size = 32;
 	cub->minimap.x_size = cub->map_data.x_len * cub->minimap.tyle_size;
@@ -64,30 +65,30 @@ void	render_minimap(t_cub *cub)
 	e_color = 0x00777777;
 	w_color = 0x00FFFFFF;
 	int i = 1;
-	while (x < cub->minimap.x_size)
+	while (y < cub->minimap.y_size)
 	{
 		int	j = 1;
-		y = 0;
-		while (y < cub->minimap.y_size)
+		x = 0;
+		while (x < cub->minimap.x_size)
 		{
 			if ((x == cub->player.x && y == cub->player.y) ||
 				(x == cub->player.x + 1 && y == cub->player.y) ||
 				(x == cub->player.x && y == cub->player.y + 1) ||
 				(x == cub->player.x + 1 && y == cub->player.y + 1))
 				render_player(cub->mlx, cub->player);
-			else if (x < cub->minimap.tyle_size * i && y < cub->minimap.tyle_size * j
-						&& x > cub->minimap.tyle_size * (i - 1) && y > cub->minimap.tyle_size * (j - 1)
+			else if (y < cub->minimap.tyle_size * i && x < cub->minimap.tyle_size * j
+						&& y > cub->minimap.tyle_size * (i - 1) && x > cub->minimap.tyle_size * (j - 1)
 						&& cub->map[i - 1][j - 1] == '1')
 				mlx_pixel_put(cub->mlx.connect, cub->mlx.window, x, y, w_color);
 			else
 				mlx_pixel_put(cub->mlx.connect, cub->mlx.window, x, y, e_color);
-			if (y >= cub->minimap.tyle_size * j)
+			x++;
+			if (x >= cub->minimap.tyle_size * j)
 				j++;
-			y++;
 		}
-		if (x >= cub->minimap.tyle_size * i)
+		y++;
+		if (y >= cub->minimap.tyle_size * i)
 			i++;
-		x++;
 	}
 }
 /*void	render_background(t_cub *cub)
