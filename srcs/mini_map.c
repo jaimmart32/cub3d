@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:30:03 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/30 15:59:10 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:00:19 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	paint_mini_map(t_cub *cub)
 		x = 0;
 		while (x < cub->minimap.x_size)
 		{
-			if ((x == cub->player.x && y == cub->player.y) ||
-				(x == cub->player.x + 1 && y == cub->player.y) ||
-				(x == cub->player.x && y == cub->player.y + 1) ||
-				(x == cub->player.x + 1 && y == cub->player.y + 1))
+			if ((x == floor(cub->player.x) && y == floor(cub->player.y)) ||
+				(x == floor(cub->player.x) + 1 && y == floor(cub->player.y)) ||
+				(x == floor(cub->player.x) && y == floor(cub->player.y) + 1) ||
+				(x == floor(cub->player.x) + 1 && y == floor(cub->player.y) + 1))
 				render_player(cub->mlx, cub->player);
 			else if (y < TILE_SIZE * i && x < TILE_SIZE * j
 						&& y > TILE_SIZE * (i - 1) && x > TILE_SIZE * (j - 1)

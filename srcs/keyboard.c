@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:09:50 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/30 16:51:53 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:51:05 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,54 @@ void	move_player(int keycode, t_cub *cub)
 {
 	if (keycode == W)
 	{
-		//move = 1
-		//cub->player.x += (coseno[angulo] * velocidad de movimiento)
-		//cub->player.y += (seno[angulo] * velocidad de movimiento)
-		cub->player.y -= 5;
+		cub->player.move = 1;
+		cub->player.x += (cos(cub->player.rotation) * cub->player.m_speed);
+		cub->player.y += (sin(cub->player.rotation) * cub->player.m_speed);
+		//cub->player.y -= 5;
 		paint_mini_map(cub);
+		printf("player.x = %f player.y = %f\n", cub->player.x, cub->player.y);
 //		render_minimap(cub);
 	}
 	if (keycode == S)
 	{
-		//move = -1
-		cub->player.y += 5;
+		cub->player.move = -1;
+		cub->player.x += cub->player.move * (cos(cub->player.rotation) * cub->player.m_speed);
+		cub->player.y += cub->player.move * (sin(cub->player.rotation) * cub->player.m_speed);
+		//cub->player.y += 5;
 		paint_mini_map(cub);
+		printf("player.x = %f player.y = %f\n", cub->player.x, cub->player.y);
 //		render_minimap(cub);
 	}
 	if (keycode == A)
 	{
-		cub->player.x -= 5;
+		cub->player.turn = -1;
+		cub->player.rotation += cub->player.turn * cub->player.t_speed;
+		printf("rot = %f\n", cub->player.rotation);
+		//cub->player.x -= 5;
 		paint_mini_map(cub);
 //		render_minimap(cub);
 	}
 	if (keycode == D)
 	{
-		cub->player.x += 5;
+		cub->player.turn = 1;
+		cub->player.rotation += cub->player.turn * cub->player.t_speed;
+		printf("rot = %f\n", cub->player.rotation);
+	//	cub->player.x += 5;
 		paint_mini_map(cub);
 //		render_minimap(cub);
 	}
-	//flecha izq -> turn = -1 angulo = turn * turn_speed
-	//flecha der -> turn = 1 angulo = turn * turn_speed
+	if (keycode == LEFT)
+	{
+		cub->player.turn = -1;
+		cub->player.rotation += cub->player.turn * cub->player.t_speed;
+		printf("rot = %f\n", cub->player.rotation);
+	}
+	if (keycode == RIGHT)
+	{
+		cub->player.turn = 1;
+		cub->player.rotation += cub->player.turn * cub->player.t_speed;
+		printf("rot = %f\n", cub->player.rotation);
+	}
 }
 
 /* Just a function for when the user presses the ESC key. */

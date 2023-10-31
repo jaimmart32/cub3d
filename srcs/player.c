@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:28:14 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/30 15:36:39 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:03:58 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ t_player	get_player_position(char **map)
 		}
 	}
 	return (player);
+}
+
+void	init_player_stats(t_player *player)
+{
+	player->rotation = 0;
+	player->move = 0;
+	player->turn = 0;
+	player->m_speed = 3;
+	player->t_speed = 3 * (PI / 180);
 }
 
 void	render_player(t_mlx mlx, t_player player)

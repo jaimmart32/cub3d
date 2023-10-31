@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/30 15:34:58 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:05:18 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define WIDTH 1024
 # define HEIGHT 512
 # define TILE_SIZE 16
+
+# define PI 3.141592
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -83,7 +85,7 @@ typedef struct s_player
 	int		move;
 	int		turn;
 	int		m_speed;
-	int		t_speed;
+	float		t_speed;
 
 }				t_player;
 
@@ -160,6 +162,7 @@ int		key_press(int keycode, t_cub *cub);
 /*		player					*/
 void	render_player(t_mlx mlx, t_player player);
 t_player	get_player_position(char **map);
+void	init_player_stats(t_player *player);
 /*		images					*/
 t_img	create_image(t_mlx mlx);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);

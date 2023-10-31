@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:28:51 by jaimmart          #+#    #+#             */
-/*   Updated: 2023/10/30 15:35:26 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:18:10 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_game(t_cub *cub)
 	cub->mlx.connect = mlx_init();
 	cub->mlx.window = mlx_new_window(cub->mlx.connect, WIDTH, HEIGHT, "cub3d");
 	cub->player = get_player_position(cub->map);
+	init_player_stats(&cub->player);
 	mlx_hook(cub->mlx.window, 17, 0, (void *)exit, 0);
 	mlx_hook(cub->mlx.window, 2, 1L << 0, key_press, cub);
 //	Should put the first image
