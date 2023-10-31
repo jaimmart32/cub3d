@@ -6,11 +6,32 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:28:14 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/31 11:03:58 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:04:17 by jaimmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+/*llamar en move_player()*/
+float	normalize_angle(float angle)
+{
+	angle = fmod(angle, 2 * PI);
+	if (angle < 0)
+		angle += (2 * PI);
+	return (angle);
+}
+
+int	colision(float x, float y, char **map)
+{
+	int	y_tile;
+	int	x_tile;
+
+	x_tile = floor(x / TILE_SIZE);
+	y_tile = floor(y / TILE_SIZE);
+	if (map[y_tile][x_tile] == '1')
+		return (1);
+	return (0);
+}
 
 t_player	get_player_position(char **map)
 {
