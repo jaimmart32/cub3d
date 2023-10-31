@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:09:50 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/31 10:51:05 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:34:42 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,72 @@
 
 void	move_player(int keycode, t_cub *cub)
 {
+	t_player	*player;
+	float		new_x;
+	float		new_y;
+
+	player = &cub->player;
 	if (keycode == W)
 	{
-		cub->player.move = 1;
-		cub->player.x += (cos(cub->player.rotation) * cub->player.m_speed);
-		cub->player.y += (sin(cub->player.rotation) * cub->player.m_speed);
-		//cub->player.y -= 5;
+		player->move = 1;
+		new_x = player->x + (cos(player->rotation) * player->m_speed);
+		new_y = player->y + (sin(player->rotation) * player->m_speed);
+		if (!collision(new_x, new_y, cub->map))
+		{
+			player->x = new_x;
+			player->y = new_y;
+		}
+		player->dest_x = player->x + (cos(player->rotation) * 50);
+		player->dest_y = player->y + (sin(player->rotation) * 50);
 		paint_mini_map(cub);
-		printf("player.x = %f player.y = %f\n", cub->player.x, cub->player.y);
-//		render_minimap(cub);
+		printf("player->x = %f player->y = %f\n", player->x, player->y);
 	}
 	if (keycode == S)
 	{
-		cub->player.move = -1;
-		cub->player.x += cub->player.move * (cos(cub->player.rotation) * cub->player.m_speed);
-		cub->player.y += cub->player.move * (sin(cub->player.rotation) * cub->player.m_speed);
-		//cub->player.y += 5;
+		player->move = -1;
+		new_x = player->x + player->move * (cos(player->rotation) * player->m_speed);
+		new_y = player->y + player->move * (sin(player->rotation) * player->m_speed);
+		if (!collision(new_x, new_y, cub->map))
+		{
+			player->x = new_x;
+			player->y = new_y;
+		}
+		player->dest_x = player->x + (cos(player->rotation) * 50);
+		player->dest_y = player->y + (sin(player->rotation) * 50);
 		paint_mini_map(cub);
-		printf("player.x = %f player.y = %f\n", cub->player.x, cub->player.y);
-//		render_minimap(cub);
+		printf("player->x = %f player->y = %f\n", player->x, player->y);
 	}
 	if (keycode == A)
 	{
-		cub->player.turn = -1;
-		cub->player.rotation += cub->player.turn * cub->player.t_speed;
-		printf("rot = %f\n", cub->player.rotation);
-		//cub->player.x -= 5;
+		player->turn = -1;
+		player->rotation += player->turn * player->t_speed;
+		player->rotation = normalize_angle(player->rotation);
+		player->dest_x = player->x + (cos(player->rotation) * 50);
+		player->dest_y = player->y + (sin(player->rotation) * 50);
+		printf("rot = %f\n", player->rotation);
 		paint_mini_map(cub);
-//		render_minimap(cub);
 	}
 	if (keycode == D)
 	{
-		cub->player.turn = 1;
-		cub->player.rotation += cub->player.turn * cub->player.t_speed;
-		printf("rot = %f\n", cub->player.rotation);
-	//	cub->player.x += 5;
+		player->turn = 1;
+		player->rotation += player->turn * player->t_speed;
+		player->rotation = normalize_angle(player->rotation);
+		player->dest_x = player->x + (cos(player->rotation) * 50);
+		player->dest_y = player->y + (sin(player->rotation) * 50);
+		printf("rot = %f\n", player->rotation);
 		paint_mini_map(cub);
-//		render_minimap(cub);
 	}
 	if (keycode == LEFT)
 	{
-		cub->player.turn = -1;
-		cub->player.rotation += cub->player.turn * cub->player.t_speed;
-		printf("rot = %f\n", cub->player.rotation);
+		player->turn = -1;
+		player->rotation += player->turn * player->t_speed;
+		printf("rot = %f\n", player->rotation);
 	}
 	if (keycode == RIGHT)
 	{
-		cub->player.turn = 1;
-		cub->player.rotation += cub->player.turn * cub->player.t_speed;
-		printf("rot = %f\n", cub->player.rotation);
+		player->turn = 1;
+		player->rotation += player->turn * player->t_speed;
+		printf("rot = %f\n", player->rotation);
 	}
 }
 

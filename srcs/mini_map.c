@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:30:03 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/31 11:00:19 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:03:29 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 coger el length de la linea mas larga por si el mapa es irregular en el eje x*/
 void	init_map_data(t_cub *cub)
 {
-	cub->map_data.x_len = (int)ft_strlen(cub->map[0]);
+	cub->map_data.x_len = (int)get_longest_line(cub->map);
 	cub->map_data.y_len = get_2d_array_size(cub->map);
 }
 
@@ -37,11 +37,11 @@ void	paint_mini_map(t_cub *cub)
 	e_color = 0x00777777;
 	w_color = 0x00FFFFFF;
 	i = 1;
-	while (y < cub->minimap.y_size)
+	while (y < cub->minimap.y_size && cub->map[i - 1])
 	{
 		j = 1;
 		x = 0;
-		while (x < cub->minimap.x_size)
+		while (x < cub->minimap.x_size && cub->map[i - 1][j - 1])
 		{
 			if ((x == floor(cub->player.x) && y == floor(cub->player.y)) ||
 				(x == floor(cub->player.x) + 1 && y == floor(cub->player.y)) ||
@@ -63,5 +63,6 @@ void	paint_mini_map(t_cub *cub)
 		y++;
 		if (y >= TILE_SIZE * i)
 			i++;
+		render_direction(cub->mlx, cub->player);
 	}
 }

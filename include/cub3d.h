@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/31 11:05:18 by jaimmart         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:15:34 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_player
 {
 	float	x;
 	float	y;
+	float	dest_x;
+	float	dest_y;
 //	float	fov;
 	float	rotation;
 	int		move;
@@ -155,11 +157,15 @@ char	*get_spaced_line(char *str, int len);
 int		check_cub_struct(t_cub *cub);
 /*		array_utils				*/
 int		get_2d_array_size(char **array);
+size_t	get_longest_line(char **map);
 char	**copy_spaced_map(char **map);
 void	free_2d_array(char **array);
 /*		keyboard				*/
 int		key_press(int keycode, t_cub *cub);
 /*		player					*/
+float	normalize_angle(float angle);
+int		collision(float x, float y, char **map);
+void	render_direction(t_mlx mlx, t_player player);
 void	render_player(t_mlx mlx, t_player player);
 t_player	get_player_position(char **map);
 void	init_player_stats(t_player *player);
