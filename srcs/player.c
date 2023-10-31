@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:28:14 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/31 18:02:15 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:06:19 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	render_ray(t_mlx mlx, t_player player, t_ray ray)
 	i = 1;
 	x = 0;
 	y = 0;
-	while (x != ray.h_wallHit_x && y != ray.h_wallHit_y)
+	while (x < ray.h_wallHit_x && y < ray.h_wallHit_y)
 	{
 		x = player.x + (cos(player.rotation) * i);
 		y = player.y + (sin(player.rotation) * i);
