@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:30:03 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/31 15:03:29 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:03:43 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	paint_mini_map(t_cub *cub)
 		y++;
 		if (y >= TILE_SIZE * i)
 			i++;
+//		render_ray(cub->mlx, cub->player, cub->ray);
 		render_direction(cub->mlx, cub->player);
 	}
 }

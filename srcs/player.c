@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:28:14 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/31 15:05:41 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:02:15 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,32 @@ t_player	get_player_position(char **map)
 
 void	init_player_stats(t_player *player)
 {
-	player->rotation = 0;
+	player->rotation = 1.5;
 	player->dest_x = 0,
 	player->dest_y = 0,
 	player->move = 0;
 	player->turn = 0;
 	player->m_speed = 3;
 	player->t_speed = 3 * (PI / 180);
+}
+
+void	render_ray(t_mlx mlx, t_player player, t_ray ray)
+{
+	unsigned int color = 0x0000FF00;
+	float		x;
+	float		y;
+	int			i;
+
+	i = 1;
+	x = 0;
+	y = 0;
+	while (x != ray.h_wallHit_x && y != ray.h_wallHit_y)
+	{
+		x = player.x + (cos(player.rotation) * i);
+		y = player.y + (sin(player.rotation) * i);
+		mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
+		i++;
+	}
 }
 
 void	render_direction(t_mlx mlx, t_player player)
