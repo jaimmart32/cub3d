@@ -6,14 +6,14 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:28:14 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/31 18:06:19 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:01:14 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 /*llamar en move_player()*/
-float	normalize_angle(float angle)
+double	normalize_angle(double angle)
 {
 	angle = fmod(angle, 2 * PI);
 	if (angle < 0)
@@ -21,13 +21,15 @@ float	normalize_angle(float angle)
 	return (angle);
 }
 
-int	collision(float x, float y, char **map)
+int	collision(double x, double y, char **map)
 {
 	int	y_tile;
 	int	x_tile;
 
 	x_tile = floor(x / TILE_SIZE);
 	y_tile = floor(y / TILE_SIZE);
+	if (x_tile > (int)ft_strlen(map[y_tile]))
+		return (1);
 	if (!map[y_tile][x_tile] || map[y_tile][x_tile] == '1')
 		return (1);
 	return (0);
@@ -67,38 +69,76 @@ void	init_player_stats(t_player *player)
 	player->t_speed = 3 * (PI / 180);
 }
 
-void	render_ray(t_mlx mlx, t_player player, t_ray ray)
+void	render_ray(t_mlx mlx, t_player player, t_ray ray, double angle)
 {
 	unsigned int color = 0x0000FF00;
-	float		x;
-	float		y;
+	double		x;
+	double		y;
 	int			i;
+//	int			j;
 
 	i = 1;
-	x = 0;
-	y = 0;
-	while (x < ray.h_wallHit_x && y < ray.h_wallHit_y)
-	{
-		x = player.x + (cos(player.rotation) * i);
-		y = player.y + (sin(player.rotation) * i);
-		mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
-		i++;
-	}
+//	j = -1;
+	x = player.x;
+	y = player.y;
+//	while (++j < WIDTH)
+//	{
+//		i = 1;
+		if (ray.down && !ray.left)
+		{
+			while (x <= ray.wallHit_x && y <= ray.wallHit_y)
+			{
+				x = player.x + (cos(angle) * i);
+				y = player.y + (sin(angle) * i);
+				mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
+				i++;
+			}
+		}
+		if (ray.down && ray.left)
+		{
+			while (x >= ray.wallHit_x && y <= ray.wallHit_y)
+			{
+				x = player.x + (cos(angle) * i);
+				y = player.y + (sin(angle) * i);
+				mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
+				i++;
+			}
+		}
+		if (!ray.down && !ray.left)
+		{
+			while (x <= ray.wallHit_x && y >= ray.wallHit_y)
+			{
+				x = player.x + (cos(angle) * i);
+				y = player.y + (sin(angle) * i);
+				mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
+				i++;
+			}
+		}
+		if (!ray.down && ray.left)
+		{
+			while (x >= ray.wallHit_x && y >= ray.wallHit_y)
+			{
+				x = player.x + (cos(angle) * i);
+				y = player.y + (sin(angle) * i);
+				mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
+				i++;
+			}
+		}
+//	}
 }
 
 void	render_direction(t_mlx mlx, t_player player)
 {
 	int		i;
-	float	x;	
-	float	y;	
+	double	x;	
+	double	y;	
 	unsigned int color = 0x00FF0000;
 
 	i = 0;
-	while (++i < 30)
+	while (++i < 20)
 	{
 		x = player.x + (cos(player.rotation) * i);
 		y = player.y + (sin(player.rotation) * i);
-//		printf("floor(x) = %f, floor(y) = %f\n", floor(x), floor(y));
 		mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
 	}
 }

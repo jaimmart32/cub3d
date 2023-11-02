@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/10/31 17:46:25 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:00:44 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,22 @@ enum	e_map_char
 typedef struct s_ray
 {
 //	Initial player postion
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 //	What the initial x, y positions will be incremented by
-	float	x_step;
-	float	y_step;
+	double	x_step;
+	double	y_step;
 //	Value of the grid interception of the first grid interception
-	float	x_intercept;
-	float	y_intercept;
+	double	x_intercept;
+	double	y_intercept;
 //	Flags to know where the player is looking
 	int		left;
 	int		down;
 //	Flags to know if there's a collision
-	int		h_wallHit_x;
-	int		h_wallHit_y;
-	int		v_wallHit_x;
-	int		v_wallHit_y;
+	double	wallHit_x;
+	double	wallHit_y;
+//	Final value for the shortest ray
+	double	distance;
 }				t_ray;
 
 /* Structure for the image creation process, this will be passed to the
@@ -99,16 +99,16 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
-	float	dest_x;
-	float	dest_y;
-//	float	fov;
-	float	rotation;
+	double	x;
+	double	y;
+	double	dest_x;
+	double	dest_y;
+//	double	fov;
+	double	rotation;
 	int		move;
 	int		turn;
 	int		m_speed;
-	float		t_speed;
+	double		t_speed;
 
 }				t_player;
 
@@ -153,7 +153,8 @@ typedef struct s_cub
 	t_tex		**textures;
 	t_mlx		mlx;
 	t_player	player;
-	t_ray		ray;
+	t_ray		ray[WIDTH];
+//	t_ray		ray;
 	t_minimap	minimap;
 	t_map_data	map_data;
 }				t_cub;
@@ -185,9 +186,9 @@ void	free_2d_array(char **array);
 /*		keyboard				*/
 int		key_press(int keycode, t_cub *cub);
 /*		player					*/
-void	render_ray(t_mlx mlx, t_player player, t_ray ray);
-float	normalize_angle(float angle);
-int		collision(float x, float y, char **map);
+void	render_ray(t_mlx mlx, t_player player, t_ray ray, double angle);
+double	normalize_angle(double angle);
+int		collision(double x, double y, char **map);
 void	render_direction(t_mlx mlx, t_player player);
 void	render_player(t_mlx mlx, t_player player);
 t_player	get_player_position(char **map);
@@ -201,7 +202,9 @@ void	render_background(t_cub *cub);
 void	render_minimap(t_cub *cub);
 /*		rays					*/
 void	check_player_direction(t_player player, t_ray *ray);
-void	ray_y(t_ray *ray, t_player player, char **map);
-t_ray	raycaster(t_player player, char **map);
+void	get_ray_y(t_ray *ray, t_cub cub, double angle);
+void	get_ray_x(t_ray *ray, t_cub cub, double angle);
+t_ray	raycaster(t_cub cub, double angle);
+void	create_ray_vision(t_cub *cub);
 
 #endif
