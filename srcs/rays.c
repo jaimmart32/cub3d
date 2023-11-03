@@ -6,19 +6,19 @@
 /*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:26:51 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/02 18:01:00 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:31:10 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	check_player_direction(t_player player, t_ray *ray)
+void	check_ray_direction(double angle, t_ray *ray)
 {
 	ray->down = 0;
 	ray->left = 0;
-	if (player.rotation < PI)
+	if (angle < PI)
 		ray->down = 1;
-	if (player.rotation < 3 * (PI / 2) && player.rotation > PI / 2)
+	if (angle < 3 * (PI / 2) && angle > PI / 2)
 		ray->left = 1;
 }
 
@@ -130,7 +130,6 @@ void	get_ray_x(t_ray *ray, t_cub cub, double angle)
 
 t_ray	raycaster(t_cub cub, double angle)
 {
-//	Should we do an array of rays?
 	t_ray	ray_x;
 	t_ray	ray_y;
 
@@ -140,8 +139,8 @@ t_ray	raycaster(t_cub cub, double angle)
 	ray_y.y = cub.player.y;
 	ray_y.distance = 9999;
 	ray_x.distance = 9999;
-	check_player_direction(cub.player, &ray_x);
-	check_player_direction(cub.player, &ray_y);
+	check_ray_direction(angle, &ray_x);
+	check_ray_direction(angle, &ray_y);
 	get_ray_y(&ray_y, cub, angle);
 	get_ray_x(&ray_x, cub, angle);
 	if (ray_y.distance < ray_x.distance)
@@ -156,16 +155,12 @@ void	create_ray_vision(t_cub *cub)
 
 	i = -1;
 	angle = cub->player.rotation - ((PI / 180) * 30);
+	angle = normalize_angle(angle);
 	while (++i < WIDTH)
 	{
 		cub->ray[i] = raycaster(*cub, angle);
-		angle += ((PI / 180) * 60) / WIDTH;
-	}
-	i = -1;
-	angle = cub->player.rotation - ((PI / 180) * 30);
-	while (++i < WIDTH)
-	{
 		render_ray(cub->mlx, cub->player, cub->ray[i], angle);
 		angle += ((PI / 180) * 60) / WIDTH;
+		angle = normalize_angle(angle);
 	}
 }

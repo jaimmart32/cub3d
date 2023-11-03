@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:28:14 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/02 18:01:14 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:31:09 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,56 +75,50 @@ void	render_ray(t_mlx mlx, t_player player, t_ray ray, double angle)
 	double		x;
 	double		y;
 	int			i;
-//	int			j;
 
 	i = 1;
-//	j = -1;
 	x = player.x;
 	y = player.y;
-//	while (++j < WIDTH)
-//	{
-//		i = 1;
-		if (ray.down && !ray.left)
+	if (ray.down && !ray.left)
+	{
+		while (x <= ray.wallHit_x && y <= ray.wallHit_y)
 		{
-			while (x <= ray.wallHit_x && y <= ray.wallHit_y)
-			{
-				x = player.x + (cos(angle) * i);
-				y = player.y + (sin(angle) * i);
-				mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
-				i++;
-			}
+			x = player.x + (cos(angle) * i);
+			y = player.y + (sin(angle) * i);
+			mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
+			i++;
 		}
-		if (ray.down && ray.left)
+	}
+	if (ray.down && ray.left)
+	{
+		while (x >= ray.wallHit_x && y <= ray.wallHit_y)
 		{
-			while (x >= ray.wallHit_x && y <= ray.wallHit_y)
-			{
-				x = player.x + (cos(angle) * i);
-				y = player.y + (sin(angle) * i);
-				mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
-				i++;
-			}
+			x = player.x + (cos(angle) * i);
+			y = player.y + (sin(angle) * i);
+			mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
+			i++;
 		}
-		if (!ray.down && !ray.left)
+	}
+	if (!ray.down && !ray.left)
+	{
+		while (x <= ray.wallHit_x && y >= ray.wallHit_y)
 		{
-			while (x <= ray.wallHit_x && y >= ray.wallHit_y)
-			{
-				x = player.x + (cos(angle) * i);
-				y = player.y + (sin(angle) * i);
-				mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
-				i++;
-			}
+			x = player.x + (cos(angle) * i);
+			y = player.y + (sin(angle) * i);
+			mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
+			i++;
 		}
-		if (!ray.down && ray.left)
+	}
+	if (!ray.down && ray.left)
+	{
+		while (x >= ray.wallHit_x && y >= ray.wallHit_y)
 		{
-			while (x >= ray.wallHit_x && y >= ray.wallHit_y)
-			{
-				x = player.x + (cos(angle) * i);
-				y = player.y + (sin(angle) * i);
-				mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
-				i++;
-			}
+			x = player.x + (cos(angle) * i);
+			y = player.y + (sin(angle) * i);
+			mlx_pixel_put(mlx.connect, mlx.window, floor(x), floor(y), color);
+			i++;
 		}
-//	}
+	}
 }
 
 void	render_direction(t_mlx mlx, t_player player)
@@ -152,4 +146,5 @@ void	render_player(t_mlx mlx, t_player player)
 	mlx_pixel_put(mlx.connect, mlx.window, player.x + 1, player.y, color);
 	mlx_pixel_put(mlx.connect, mlx.window, player.x + 1, player.y + 1, color);
 //	render_direction(mlx, player);
+//
 }
