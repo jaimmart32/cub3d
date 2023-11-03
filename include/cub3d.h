@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/03 12:07:27 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:59:08 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define RIGHT 124
 
 /*		WINDOW			*/
-# define WIDTH 1024
-# define HEIGHT 512
+# define WIDTH 512 
+# define HEIGHT 256 
 # define TILE_SIZE 16
 
 # define PI 3.141592
@@ -103,7 +103,7 @@ typedef struct s_player
 	double	y;
 	double	dest_x;
 	double	dest_y;
-//	double	fov;
+	double	fov;
 	double	rotation;
 	int		move;
 	int		turn;
@@ -154,7 +154,6 @@ typedef struct s_cub
 	t_mlx		mlx;
 	t_player	player;
 	t_ray		ray[WIDTH];
-//	t_ray		ray;
 	t_minimap	minimap;
 	t_map_data	map_data;
 }				t_cub;
@@ -197,6 +196,7 @@ void	init_player_stats(t_player *player);
 t_img	create_image(t_mlx mlx);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 /*		mini_map				*/
+void	init_map_data(t_cub *cub);
 void	paint_mini_map(t_cub *cub);
 void	render_background(t_cub *cub);
 void	render_minimap(t_cub *cub);
@@ -207,4 +207,6 @@ void	get_ray_x(t_ray *ray, t_cub cub, double angle);
 t_ray	raycaster(t_cub cub, double angle);
 void	create_ray_vision(t_cub *cub);
 
+void	render_walls(t_cub *cub, t_player player, t_ray ray, int x);
+void	paint_walls(t_cub *cub);
 #endif

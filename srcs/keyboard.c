@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:09:50 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/03 12:31:10 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:45:27 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ void	move_player(int keycode, t_cub *cub)
 		}
 		player->dest_x = player->x + (cos(player->rotation) * 50);
 		player->dest_y = player->y + (sin(player->rotation) * 50);
-		paint_mini_map(cub);
+//		paint_mini_map(cub);
 		create_ray_vision(cub);
+		paint_walls(cub);
 	}
 	if (keycode == S)
 	{
@@ -46,8 +47,9 @@ void	move_player(int keycode, t_cub *cub)
 		}
 		player->dest_x = player->x + (cos(player->rotation) * 50);
 		player->dest_y = player->y + (sin(player->rotation) * 50);
-		paint_mini_map(cub);
+//		paint_mini_map(cub);
 		create_ray_vision(cub);
+		paint_walls(cub);
 	}
 	if (keycode == A)
 	{
@@ -56,8 +58,9 @@ void	move_player(int keycode, t_cub *cub)
 		player->rotation = normalize_angle(player->rotation);
 		player->dest_x = player->x + (cos(player->rotation) * 50);
 		player->dest_y = player->y + (sin(player->rotation) * 50);
-		paint_mini_map(cub);
+//		paint_mini_map(cub);
 		create_ray_vision(cub);
+		paint_walls(cub);
 	}
 	if (keycode == D)
 	{
@@ -66,8 +69,9 @@ void	move_player(int keycode, t_cub *cub)
 		player->rotation = normalize_angle(player->rotation);
 		player->dest_x = player->x + (cos(player->rotation) * 50);
 		player->dest_y = player->y + (sin(player->rotation) * 50);
-		paint_mini_map(cub);
+//		paint_mini_map(cub);
 		create_ray_vision(cub);
+		paint_walls(cub);
 	}
 	if (keycode == LEFT)
 	{
@@ -79,6 +83,7 @@ void	move_player(int keycode, t_cub *cub)
 		player->turn = 1;
 		player->rotation += player->turn * player->t_speed;
 	}
+	printf("rot = %f\n", player->rotation);
 }
 
 /* Just a function for when the user presses the ESC key. */

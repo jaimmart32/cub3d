@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:28:14 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/03 12:31:09 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:54:31 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_player	get_player_position(char **map)
 
 void	init_player_stats(t_player *player)
 {
-	player->rotation = 1.5;
+	player->rotation = 4.5;
 	player->dest_x = 0,
 	player->dest_y = 0,
 	player->move = 0;

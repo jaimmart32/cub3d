@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:30:03 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/02 17:50:17 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:59:09 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,64 @@ void	paint_mini_map(t_cub *cub)
 			i++;
 //		render_ray(cub->mlx, cub->player, cub->ray);
 		render_direction(cub->mlx, cub->player);
+	}
+}
+
+void	paint_background(t_cub *cub)
+{
+	int				x;
+	int				y;
+	unsigned int	b_color;
+
+	y = 0;
+	b_color = 0x00000000;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			mlx_pixel_put(cub->mlx.connect, cub->mlx.window, x, y, b_color);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	render_walls(t_cub *cub, t_player player, t_ray ray, int x)
+{
+	double	distanceProjection;
+	double	wall_height;
+	int		tile_height;
+	int		y0;
+	int		y1;
+	int		paint_y;
+	unsigned int	w_color;
+
+	w_color = 0x00FF0000;
+	distanceProjection = (WIDTH / 2) / tan(player.rotation);
+	tile_height = 500;
+	wall_height = (tile_height/ray.distance) * distanceProjection;
+	if (wall_height < 64)
+		wall_height = 64;
+	y0 = floor(HEIGHT / 2) - floor(wall_height / 2);
+	y1 = y0 + wall_height;
+	paint_y = y0;
+	while (paint_y < y1)
+	{
+		mlx_pixel_put(cub->mlx.connect, cub->mlx.window, x, paint_y, w_color);
+		paint_y++;
+	}
+}
+
+void	paint_walls(t_cub *cub)
+{
+	int	i;
+
+	i = 0;
+	paint_background(cub);
+	while (i < WIDTH)
+	{
+		render_walls(cub, cub->player, cub->ray[i], i);
+		i++;
 	}
 }

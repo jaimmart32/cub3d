@@ -6,7 +6,7 @@
 /*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:26:51 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/03 12:31:10 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:12:32 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	create_ray_vision(t_cub *cub)
 	while (++i < WIDTH)
 	{
 		cub->ray[i] = raycaster(*cub, angle);
-		render_ray(cub->mlx, cub->player, cub->ray[i], angle);
+//		render_ray(cub->mlx, cub->player, cub->ray[i], angle);
 		angle += ((PI / 180) * 60) / WIDTH;
 		angle = normalize_angle(angle);
 	}
