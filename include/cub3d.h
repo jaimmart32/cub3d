@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/03 16:59:08 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:58:15 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ typedef struct s_ray
 	double	wallHit_y;
 //	Final value for the shortest ray
 	double	distance;
+	double	angle;
+	int		type;
 }				t_ray;
 
 /* Structure for the image creation process, this will be passed to the
@@ -108,6 +110,8 @@ typedef struct s_player
 	int		move;
 	int		turn;
 	int		m_speed;
+	int		left;
+	int		down;
 	double		t_speed;
 
 }				t_player;
@@ -185,9 +189,11 @@ void	free_2d_array(char **array);
 /*		keyboard				*/
 int		key_press(int keycode, t_cub *cub);
 /*		player					*/
+void	check_player_direction(t_player *player);
 void	render_ray(t_mlx mlx, t_player player, t_ray ray, double angle);
 double	normalize_angle(double angle);
 int		collision(double x, double y, char **map);
+void	render_ray(t_mlx mlx, t_player player, t_ray ray, double angle);
 void	render_direction(t_mlx mlx, t_player player);
 void	render_player(t_mlx mlx, t_player player);
 t_player	get_player_position(char **map);
@@ -201,7 +207,6 @@ void	paint_mini_map(t_cub *cub);
 void	render_background(t_cub *cub);
 void	render_minimap(t_cub *cub);
 /*		rays					*/
-void	check_player_direction(t_player player, t_ray *ray);
 void	get_ray_y(t_ray *ray, t_cub cub, double angle);
 void	get_ray_x(t_ray *ray, t_cub cub, double angle);
 t_ray	raycaster(t_cub cub, double angle);

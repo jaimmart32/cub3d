@@ -6,11 +6,21 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:28:14 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/03 14:54:31 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:39:36 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	check_player_direction(t_player *player)
+{
+	player->down = 0;
+	player->left = 0;
+	if (player->rotation < PI)
+		player->down = 1;
+	if (player->rotation < 3 * (PI / 2) && player->rotation > PI / 2)
+		player->left = 1;
+}
 
 /*llamar en move_player()*/
 double	normalize_angle(double angle)

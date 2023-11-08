@@ -6,14 +6,12 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:30:03 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/03 16:59:09 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:24:27 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-/* Ojo, se asume que todas las lineas del mapa miden lo mismo!, lo suyo seria,
-coger el length de la linea mas larga por si el mapa es irregular en el eje x*/
 void	init_map_data(t_cub *cub)
 {
 	cub->map_data.x_len = (int)get_longest_line(cub->map);
@@ -63,7 +61,7 @@ void	paint_mini_map(t_cub *cub)
 		y++;
 		if (y >= TILE_SIZE * i)
 			i++;
-//		render_ray(cub->mlx, cub->player, cub->ray);
+		render_ray(cub->mlx, cub->player, *cub->ray, cub->ray->angle);
 		render_direction(cub->mlx, cub->player);
 	}
 }
@@ -99,13 +97,26 @@ void	render_walls(t_cub *cub, t_player player, t_ray ray, int x)
 	unsigned int	w_color;
 
 	w_color = 0x00FF0000;
-	distanceProjection = (WIDTH / 2) / tan(player.rotation);
-	tile_height = 500;
+	(void)player;
+//	check_player_direction(&player);
+//	if ((player.down && player.left) || (!player.down && !player.left))
+//		distanceProjection = (WIDTH / 2) / fabs(tan(player.rotation));
+//	else
+//	distanceProjection = (WIDTH / 2) / tan(player.rotation);
+	distanceProjection = (WIDTH / 2) / tan((PI / 180) * 30);
+	tile_height = 16;
+	printf("(%i / %f) * %f\n", tile_height, ray.distance, distanceProjection);
 	wall_height = (tile_height/ray.distance) * distanceProjection;
-	if (wall_height < 64)
-		wall_height = 64;
+//	if (wall_height < 16)
+//		wall_height = 16;
 	y0 = floor(HEIGHT / 2) - floor(wall_height / 2);
 	y1 = y0 + wall_height;
+	if (y0 < 0)
+		y0 = 0;
+	if (y1 >= HEIGHT)
+		y1 = HEIGHT - 1;
+	printf("wall_height = %f ---- y0 = %i --- y1 = %i ---\n", wall_height, y0, y1);
+	printf("RAY_DISTANCE = %f\n", ray.distance);
 	paint_y = y0;
 	while (paint_y < y1)
 	{
