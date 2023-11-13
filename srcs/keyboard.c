@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:09:50 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/08 14:32:00 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:51:02 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,32 @@ void	move_player(int keycode, t_cub *cub)
 	}
 	if (keycode == A)
 	{
-		player->turn = -1;
-		player->rotation += player->turn * player->t_speed;
-		player->rotation = normalize_angle(player->rotation);
-		player->dest_x = player->x + (cos(player->rotation) * 50);
-		player->dest_y = player->y + (sin(player->rotation) * 50);
+		player->move = 1;
+		new_x = player->x + player->move * (cos(player->rotation - PI / 2) * player->m_speed);
+		new_y = player->y + player->move * (sin(player->rotation - PI / 2) * player->m_speed);
+		if (!collision(new_x, new_y, cub->map))
+		{
+			player->x = new_x;
+			player->y = new_y;
+		}
+		player->dest_x = player->x + (cos(player->rotation - PI / 2) * 50);
+		player->dest_y = player->y + (sin(player->rotation - PI / 2) * 50);
 		create_ray_vision(cub);
 		paint_walls(cub);
 		paint_mini_map(cub);
 	}
 	if (keycode == D)
 	{
-		player->turn = 1;
-		player->rotation += player->turn * player->t_speed;
-		player->rotation = normalize_angle(player->rotation);
-		player->dest_x = player->x + (cos(player->rotation) * 50);
-		player->dest_y = player->y + (sin(player->rotation) * 50);
+		player->move = 1;
+		new_x = player->x + player->move * (cos(player->rotation + PI / 2) * player->m_speed);
+		new_y = player->y + player->move * (sin(player->rotation + PI / 2) * player->m_speed);
+		if (!collision(new_x, new_y, cub->map))
+		{
+			player->x = new_x;
+			player->y = new_y;
+		}
+		player->dest_x = player->x + (cos(player->rotation + PI / 2) * 50);
+		player->dest_y = player->y + (sin(player->rotation + PI / 2) * 50);
 		create_ray_vision(cub);
 		paint_walls(cub);
 		paint_mini_map(cub);
@@ -77,11 +87,23 @@ void	move_player(int keycode, t_cub *cub)
 	{
 		player->turn = -1;
 		player->rotation += player->turn * player->t_speed;
+		player->rotation = normalize_angle(player->rotation);
+		player->dest_x = player->x + (cos(player->rotation) * 50);
+		player->dest_y = player->y + (sin(player->rotation) * 50);
+		create_ray_vision(cub);
+		paint_walls(cub);
+		paint_mini_map(cub);
 	}
 	if (keycode == RIGHT)
 	{
 		player->turn = 1;
 		player->rotation += player->turn * player->t_speed;
+		player->rotation = normalize_angle(player->rotation);
+		player->dest_x = player->x + (cos(player->rotation) * 50);
+		player->dest_y = player->y + (sin(player->rotation) * 50);
+		create_ray_vision(cub);
+		paint_walls(cub);
+		paint_mini_map(cub);
 	}
 	printf("rot = %f\n", player->rotation);
 }
@@ -108,7 +130,9 @@ int	key_press(int keycode, t_cub *cub)
 		move_player(S, cub);
 	if (keycode == D)
 		move_player(D, cub);
-//	if (keycode == LEFT)
-//	if (keycode == RIGHT)
+	if (keycode == LEFT)
+		move_player(LEFT, cub);
+	if (keycode == RIGHT)
+		move_player(RIGHT, cub);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:26:51 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/08 18:14:08 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:42:33 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ void	get_ray_y(t_ray *ray, t_cub cub, double angle)
 		}
 	}
 	if (horizontalCol)
+	{
 		ray->distance = ray_distance(ray);
+		ray->distance *= cos(cub.player.rotation - angle);
+	}
 }
 
 void	get_ray_x(t_ray *ray, t_cub cub, double angle)
@@ -125,7 +128,10 @@ void	get_ray_x(t_ray *ray, t_cub cub, double angle)
 		}
 	}
 	if (verticalCol)
+	{
 		ray->distance = ray_distance(ray);
+		ray->distance *= cos(cub.player.rotation - angle);
+	}
 }
 
 t_ray	raycaster(t_cub cub, double angle)
@@ -148,56 +154,6 @@ t_ray	raycaster(t_cub cub, double angle)
 	return (ray_x.type = 1, ray_x);
 }
 
-/*void	check_parallel(t_ray *ray)
-{
-	int		i;
-	int		type;
-	double	x;
-	double	y;
-	double	dist;
-	double	angle;
-
-	i = 0;
-	x = 0;
-	y = 0;
-	type = 0;
-	while (i < WIDTH)
-	{
-		angle = floor(ray[i].angle);
-		if (angle == floor(PI) || angle == floor(PI / 2) || angle == floor((PI * 3) / 2)
-			|| !angle)
-		{
-			if (ray[i].type == 1)
-			{
-				type = 1;
-				x = ray[i].wallHit_x;
-			}
-			else
-			{
-				type = 2;
-				y = ray[i].wallHit_y;
-			}
-			dist = ray[i].distance;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < WIDTH)
-	{
-		if (type == 1)
-		{
-			if (ray[i].wallHit_x == x)
-				ray[i].distance = dist;
-		}
-		else if (type == 2)
-		{
-			if (ray[i].wallHit_y == y)
-				ray[i].distance = dist;
-		}
-		i++;
-	}
-}*/
-
 void	create_ray_vision(t_cub *cub)
 {
 	int		i;
@@ -215,5 +171,4 @@ void	create_ray_vision(t_cub *cub)
 		angle = normalize_angle(angle);
 		cub->ray[i].angle = angle;
 	}
-	check_parallel(cub->ray);
 }
