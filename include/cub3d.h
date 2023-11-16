@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:36:29 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/08 17:58:15 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:19:19 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ void	paint_mini_map(t_cub *cub);
 void	render_background(t_cub *cub);
 void	render_minimap(t_cub *cub);
 /*		rays					*/
+void	normalize_distance(t_cub *cub);
 void	get_ray_y(t_ray *ray, t_cub cub, double angle);
 void	get_ray_x(t_ray *ray, t_cub cub, double angle);
 t_ray	raycaster(t_cub cub, double angle);

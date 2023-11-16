@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:09:50 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/13 14:51:02 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:23:51 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void	move_player(int keycode, t_cub *cub)
 		paint_walls(cub);
 		paint_mini_map(cub);
 	}
-	printf("rot = %f\n", player->rotation);
 }
 
 /* Just a function for when the user presses the ESC key. */

@@ -6,7 +6,7 @@
 /*   By: jaimmart <jaimmart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:30:03 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/13 17:52:44 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:22:31 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,11 @@ void	render_walls(t_cub *cub, t_player player, t_ray ray, int x)
 {
 	double	distanceProjection;
 	double	wall_height;
+//	double	wall;
 	int		tile_height;
 	int		y0;
 	int		y1;
 	int		paint_y;
-//	double	wall;
 	unsigned int	w_color;
 
 	w_color = 0x00FF0000;
@@ -134,7 +134,7 @@ void	render_walls(t_cub *cub, t_player player, t_ray ray, int x)
 	distanceProjection = (WIDTH / 2) * tan((PI / 180) * 30);
 	tile_height = 25;
 //	wall = WIDTH / 2;
-//	printf("(%i / %f) * %f\n", tile_height, ray.distance, distanceProjection);
+//	wall_height = wall / (wall / distanceProjection * ray.distance) * tile_height;
 	wall_height = (tile_height/ray.distance) * distanceProjection;
 	y0 = floor(HEIGHT / 2) - floor(wall_height / 2);
 	y1 = y0 + wall_height;
@@ -142,11 +142,11 @@ void	render_walls(t_cub *cub, t_player player, t_ray ray, int x)
 		y0 = 0;
 	if (y1 >= HEIGHT)
 		y1 = HEIGHT - 1;
-//	printf("wall_height = %f ---- y0 = %i --- y1 = %i ---\n", wall_height, y0, y1);
-//	printf("RAY_DISTANCE = %f\n", ray.distance);
 	paint_y = y0;
 	while (paint_y < y1)
 	{
+		if (!ray.down && ray.type == 2)
+			w_color = 0x00FFFF00;
 		mlx_pixel_put(cub->mlx.connect, cub->mlx.window, x, paint_y, w_color);
 		paint_y++;
 	}
@@ -158,6 +158,7 @@ void	paint_walls(t_cub *cub)
 
 	i = 0;
 	paint_background(cub);
+//	normalize_distance(cub);
 	while (i < WIDTH)
 	{
 		render_walls(cub, cub->player, cub->ray[i], i);

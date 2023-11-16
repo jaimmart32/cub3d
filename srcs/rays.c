@@ -6,7 +6,7 @@
 /*   By: bbeltran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:26:51 by bbeltran          #+#    #+#             */
-/*   Updated: 2023/11/13 17:42:33 by bbeltran         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:21:13 by bbeltran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,44 @@ int	check_limits(t_cub cub, double next_x, double next_y)
 	return (0);
 }
 
+/*void	normalize_distance(t_cub *cub)
+{
+	double	new_angle;
+	int		ray_n;
+
+	ray_n  = 0;
+	while (ray_n < WIDTH)
+	{
+		if (ray_n < WIDTH / 2)
+			new_angle = ((PI / 180) * 45) + (ray_n * ((PI / 180) * 90) / WIDTH);
+		else if (ray_n >= WIDTH / 2)
+			new_angle = ((PI / 180) * 45) + ((511 - ray_n) * ((PI / 180) * 90) / WIDTH);
+//		new_angle = ((PI / 180) * 90) - ((PI / 180) * 30) - (ray_n * ((PI / 180) * 60) / WIDTH);
+//		if (ray_n < 10 || ray_n > 501)
+		if (ray_n < 10 || ray_n > 501 || (ray_n > 250 && ray_n < 260))
+			printf("distancia[%d] = %f\n",ray_n, cub->ray[ray_n].distance);
+		if (new_angle < 0)
+			new_angle *= -1;
+		cub->ray[ray_n].distance *= sin(new_angle);
+		if (ray_n < 10 || ray_n > 501 || (ray_n > 250 && ray_n < 260))
+			printf("angulo[%d] = %f -- dist: %f\n",ray_n,  new_angle, cub->ray[ray_n].distance);
+		ray_n++;
+	}
+}*/
+
+void	normalize_distance(t_cub *cub)
+{
+	double	new_angle;
+	int		ray_n;
+
+	ray_n  = 0;
+	while (ray_n < WIDTH)
+	{
+		new_angle = fabs(cub->player.rotation - cub->ray[ray_n].angle);
+		cub->ray[ray_n].distance *= cos(new_angle);
+		ray_n++;
+	}
+}
 double	ray_distance(t_ray *ray)
 {
 	double	distance;
@@ -85,7 +123,9 @@ void	get_ray_y(t_ray *ray, t_cub cub, double angle)
 	if (horizontalCol)
 	{
 		ray->distance = ray_distance(ray);
-		ray->distance *= cos(cub.player.rotation - angle);
+//		new_angle = ray_n * 
+//		ray->distance = ray->distance * cos(???);
+//		ray->distance *= cos(cub.player.rotation - angle);
 	}
 }
 
@@ -130,7 +170,7 @@ void	get_ray_x(t_ray *ray, t_cub cub, double angle)
 	if (verticalCol)
 	{
 		ray->distance = ray_distance(ray);
-		ray->distance *= cos(cub.player.rotation - angle);
+//		ray->distance *= cos(cub.player.rotation - angle);
 	}
 }
 
@@ -161,7 +201,7 @@ void	create_ray_vision(t_cub *cub)
 
 	i = -1;
 	angle = cub->player.rotation - ((PI / 180) * 30);
-	angle = normalize_angle(angle);
+//	angle = normalize_angle(angle);
 	while (++i < WIDTH)
 	{
 		cub->ray[i].angle = angle;
